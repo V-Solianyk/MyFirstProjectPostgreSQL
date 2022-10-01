@@ -13,5 +13,5 @@ public interface FootballerRepository extends PagingAndSortingRepository<Footbal
 
     List<Footballer> findAllByOverallRating(Integer age, Pageable pageable);
 
-    List<Footballer> findAllByWorkingLegAndOverallRating(String workingLeg, Integer overallRating, Pageable pageable);
+    List<Footballer> findAllByWorkingLegAndAge(String workingLeg, Integer age, Pageable pageable);
 }

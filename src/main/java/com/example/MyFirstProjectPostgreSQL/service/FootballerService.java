@@ -12,15 +12,17 @@ public interface FootballerService {
 
     List<FootballerModel> getAllByOverallRating(Integer overallRating, Pageable pageable);
 
+    List<FootballerModel> getAllByWorkingLeg(String leg, Pageable pageable);
+
     List<FootballerModel> getAllByWorkingLegAndAge(String leg, Integer age, Pageable pageable);
 
-    FootballerModel get(Integer id);
+    FootballerModel get(Long id);
 
     FootballerModel create(FootballerModel footballerModel);
 
-    FootballerModel update(Integer id, FootballerModel footballerModel);
+    FootballerModel update(Long id, FootballerModel footballerModel);
 
-    FootballerModel delete(Integer id);
+    void delete(Long id);
 
 
 }
