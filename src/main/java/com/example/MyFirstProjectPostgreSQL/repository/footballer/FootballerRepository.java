@@ -1,4 +1,4 @@
-package com.example.MyFirstProjectPostgreSQL.repository;
+package com.example.MyFirstProjectPostgreSQL.repository.footballer;
 
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +14,6 @@ public interface FootballerRepository extends PagingAndSortingRepository<Footbal
     List<Footballer> findAllByOverallRating(Integer age, Pageable pageable);
 
     List<Footballer> findAllByWorkingLegAndAge(String workingLeg, Integer age, Pageable pageable);
+
+    List<Footballer> findAllByFootballTeam(String footballTeam, Pageable pageable);
 }

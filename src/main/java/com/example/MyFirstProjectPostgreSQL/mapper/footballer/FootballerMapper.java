@@ -1,4 +1,4 @@
-package com.example.MyFirstProjectPostgreSQL.mapper;
+package com.example.MyFirstProjectPostgreSQL.mapper.footballer;
 
 
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;

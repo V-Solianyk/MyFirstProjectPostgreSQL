@@ -1,4 +1,4 @@
-package com.example.MyFirstProjectPostgreSQL.service;
+package com.example.MyFirstProjectPostgreSQL.service.footballer;
 
 import com.example.MyFirstProjectPostgreSQL.model.FootballerModel;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +16,8 @@ public interface FootballerService {
 
     List<FootballerModel> getAllByWorkingLegAndAge(String leg, Integer age, Pageable pageable);
 
+    List<FootballerModel> getAllByFootballTeam(String footballTeam, Pageable pageable);
+
     FootballerModel get(Long id);
 
     FootballerModel create(FootballerModel footballerModel);
@@ -23,6 +25,4 @@ public interface FootballerService {
     FootballerModel update(Long id, FootballerModel footballerModel);
 
     void delete(Long id);
-
-
 }

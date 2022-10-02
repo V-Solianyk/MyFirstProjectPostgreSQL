@@ -1,9 +1,9 @@
-package com.example.MyFirstProjectPostgreSQL.service;
+package com.example.MyFirstProjectPostgreSQL.service.footballer;
 
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
-import com.example.MyFirstProjectPostgreSQL.mapper.FootballerMapper;
+import com.example.MyFirstProjectPostgreSQL.mapper.footballer.FootballerMapper;
 import com.example.MyFirstProjectPostgreSQL.model.FootballerModel;
-import com.example.MyFirstProjectPostgreSQL.repository.FootballerRepository;
+import com.example.MyFirstProjectPostgreSQL.repository.footballer.FootballerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -55,6 +55,13 @@ public class FootballerServiceImpl implements FootballerService {
     @Override
     public List<FootballerModel> getAllByWorkingLegAndAge(String leg, Integer age, Pageable pageable) {
         return footballerRepository.findAllByWorkingLegAndAge(leg, age, pageable).stream()
+                .map(footballerMapper::footballerToFootballerModel)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FootballerModel> getAllByFootballTeam(String footballTeam, Pageable pageable) {
+        return footballerRepository.findAllByFootballTeam(footballTeam, pageable).stream()
                 .map(footballerMapper::footballerToFootballerModel)
                 .collect(Collectors.toList());
     }

@@ -1,6 +1,8 @@
 package com.example.MyFirstProjectPostgreSQL.entity;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -30,7 +31,7 @@ public class Footballer {
     @Max(99)
     Integer overallRating;
 
-    @NotNull
+    @Value("${some.key:right}")
     String workingLeg;
 
     @ManyToOne
