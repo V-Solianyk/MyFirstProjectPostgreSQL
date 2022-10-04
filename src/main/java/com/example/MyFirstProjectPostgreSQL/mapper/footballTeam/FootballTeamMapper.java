@@ -1,10 +1,10 @@
 package com.example.MyFirstProjectPostgreSQL.mapper.footballTeam;
 
 import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
-import com.example.MyFirstProjectPostgreSQL.model.FootballTeamModel;
+import com.example.MyFirstProjectPostgreSQL.dto.FootballTeamDTO;
 
 public interface FootballTeamMapper {
-    FootballTeamModel footballTeamToFootballTeamModel(FootballTeam footballTeam);
+    FootballTeamDTO footballTeamToFootballTeamDTO(FootballTeam footballTeam);
 
-    FootballTeam footballTeamModelToFootballTeam(FootballTeamModel footballTeamModel);
+    FootballTeam footballTeamDTOToFootballTeam(FootballTeamDTO footballTeamDTO);
 }

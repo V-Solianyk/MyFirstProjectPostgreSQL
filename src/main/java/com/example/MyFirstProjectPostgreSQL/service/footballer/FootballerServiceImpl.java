@@ -2,7 +2,7 @@ package com.example.MyFirstProjectPostgreSQL.service.footballer;
 
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
 import com.example.MyFirstProjectPostgreSQL.mapper.footballer.FootballerMapper;
-import com.example.MyFirstProjectPostgreSQL.model.FootballerModel;
+import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
 import com.example.MyFirstProjectPostgreSQL.repository.footballer.FootballerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -25,73 +25,73 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
-    public List<FootballerModel> getAll() {
+    public List<FootballerDTO> getAll() {
         return StreamSupport.stream(footballerRepository.findAll().spliterator(), false)
-                .map(footballerMapper::footballerToFootballerModel)
+                .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballerModel> getAllByAge(Integer age, Pageable pageable) {
+    public List<FootballerDTO> getAllByAge(Integer age, Pageable pageable) {
         return footballerRepository.findAllByAge(age, pageable).stream()
-                .map(footballerMapper::footballerToFootballerModel)
+                .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballerModel> getAllByOverallRating(Integer overallRating, Pageable pageable) {
+    public List<FootballerDTO> getAllByOverallRating(Integer overallRating, Pageable pageable) {
         return footballerRepository.findAllByOverallRating(overallRating, pageable).stream()
-                .map(footballerMapper::footballerToFootballerModel)
+                .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballerModel> getAllByWorkingLeg(String leg, Pageable pageable) {
+    public List<FootballerDTO> getAllByWorkingLeg(String leg, Pageable pageable) {
         return footballerRepository.findAllByWorkingLeg(leg, pageable).stream()
-                .map(footballerMapper::footballerToFootballerModel)
+                .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballerModel> getAllByWorkingLegAndAge(String leg, Integer age, Pageable pageable) {
+    public List<FootballerDTO> getAllByWorkingLegAndAge(String leg, Integer age, Pageable pageable) {
         return footballerRepository.findAllByWorkingLegAndAge(leg, age, pageable).stream()
-                .map(footballerMapper::footballerToFootballerModel)
+                .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballerModel> getAllByFootballTeam(String footballTeam, Pageable pageable) {
+    public List<FootballerDTO> getAllByFootballTeam(String footballTeam, Pageable pageable) {
         return footballerRepository.findAllByFootballTeam(footballTeam, pageable).stream()
-                .map(footballerMapper::footballerToFootballerModel)
+                .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public FootballerModel get(Long id) {
+    public FootballerDTO get(Long id) {
         Footballer footballer = footballerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Footballer not found for id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Footballer not found for this id: " + id));
 
-        return footballerMapper.footballerToFootballerModel(footballer);
+        return footballerMapper.footballerToFootballerDTO(footballer);
     }
 
     @Override
-    public FootballerModel create(FootballerModel footballerModel) {
-        Footballer footballer = footballerMapper.footballerModelToFootballer(footballerModel);
+    public FootballerDTO create(FootballerDTO footballerDTO) {
+        Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
 
         footballerRepository.save(footballer);
 
-        return footballerModel;
+        return footballerDTO;
     }
 
     @Override
-    public FootballerModel update(Long id, FootballerModel footballerModel) {
+    public FootballerDTO update(Long id, FootballerDTO footballerDTO) {
         footballerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Footballer not found for id: " + id));
 
-        Footballer footballer = footballerMapper.footballerModelToFootballer(footballerModel);
+        Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
         footballer.setId(id);
 
-        return footballerModel;
+        return footballerDTO;
     }
 
     @Override

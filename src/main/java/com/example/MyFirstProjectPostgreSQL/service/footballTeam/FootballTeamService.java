@@ -1,17 +1,22 @@
 package com.example.MyFirstProjectPostgreSQL.service.footballTeam;
 
-import com.example.MyFirstProjectPostgreSQL.model.FootballTeamModel;
+import com.example.MyFirstProjectPostgreSQL.dto.FootballTeamDTO;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface FootballTeamService {
-    List<FootballTeamModel> getAll();
+    List<FootballTeamDTO> getAll();
 
-    FootballTeamModel get(Long id);
+    FootballTeamDTO get(Long id);
 
-    FootballTeamModel create(FootballTeamModel footballTeamModel);
+    List<FootballTeamDTO> getAllByTeamBudget(Integer teamBudget, Pageable pageable);
 
-    FootballTeamModel update(Long id, FootballTeamModel footballTeamModel);
+    List<FootballTeamDTO> getAllByYearOfFoundation(Integer yearOfFoundation, Pageable pageable);
+
+    FootballTeamDTO create(FootballTeamDTO footballTeamDTO);
+
+    FootballTeamDTO update(Long id, FootballTeamDTO footballTeamDTO);
 
     void delete(Long id);
 }

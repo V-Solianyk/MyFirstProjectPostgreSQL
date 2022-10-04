@@ -1,31 +1,31 @@
 package com.example.MyFirstProjectPostgreSQL.mapper.footballer;
 
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
-import com.example.MyFirstProjectPostgreSQL.model.FootballerModel;
+import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FootballerMapperImpl implements FootballerMapper {
     @Override
-    public FootballerModel footballerToFootballerModel(Footballer footballer) {
-        FootballerModel footballerModel = new FootballerModel();
-        footballerModel.setAge(footballer.getAge());
-        footballerModel.setSurname(footballer.getSurname());
-        footballerModel.setOverallRating(footballer.getOverallRating());
-        footballerModel.setWorkingLeg(footballer.getWorkingLeg());
-        footballerModel.setFootballTeam(footballer.getFootballTeam());
+    public FootballerDTO footballerToFootballerDTO(Footballer footballer) {
+        FootballerDTO footballerDTO = new FootballerDTO();
+        footballerDTO.setAge(footballer.getAge());
+        footballerDTO.setSurname(footballer.getSurname());
+        footballerDTO.setOverallRating(footballer.getOverallRating());
+        footballerDTO.setWorkingLeg(footballer.getWorkingLeg());
+        footballerDTO.setFootballTeam(footballer.getFootballTeam());
 
-        return footballerModel;
+        return footballerDTO;
     }
 
     @Override
-    public Footballer footballerModelToFootballer(FootballerModel footballerModel) {
+    public Footballer footballerDTOToFootballer(FootballerDTO footballerDTO) {
         Footballer footballer = new Footballer();
-        footballer.setAge(footballerModel.getAge());
-        footballer.setSurname(footballerModel.getSurname());
-        footballer.setOverallRating(footballerModel.getOverallRating());
-        footballer.setWorkingLeg(footballerModel.getWorkingLeg());
-        footballer.setFootballTeam(footballerModel.getFootballTeam());
+        footballer.setAge(footballerDTO.getAge());
+        footballer.setSurname(footballerDTO.getSurname());
+        footballer.setOverallRating(footballerDTO.getOverallRating());
+        footballer.setWorkingLeg(footballerDTO.getWorkingLeg());
+        footballer.setFootballTeam(footballerDTO.getFootballTeam());
 
         return footballer;
     }

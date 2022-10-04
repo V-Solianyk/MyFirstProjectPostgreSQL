@@ -1,29 +1,29 @@
 package com.example.MyFirstProjectPostgreSQL.mapper.footballTeam;
 
 import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
-import com.example.MyFirstProjectPostgreSQL.model.FootballTeamModel;
+import com.example.MyFirstProjectPostgreSQL.dto.FootballTeamDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FootballTeamMapperImpl implements FootballTeamMapper {
     @Override
-    public FootballTeamModel footballTeamToFootballTeamModel(FootballTeam footballTeam) {
-        FootballTeamModel footballTeamModel = new FootballTeamModel();
-        footballTeamModel.setTeamName(footballTeam.getTeamName());
-        footballTeamModel.setTeamBudget(footballTeam.getTeamBudget());
-        footballTeamModel.setYearOfFoundation(footballTeam.getYearOfFoundation());
-        footballTeamModel.setFootballers(footballTeam.getFootballers());
+    public FootballTeamDTO footballTeamToFootballTeamDTO(FootballTeam footballTeam) {
+        FootballTeamDTO footballTeamDTO = new FootballTeamDTO();
+        footballTeamDTO.setTeamName(footballTeam.getTeamName());
+        footballTeamDTO.setTeamBudget(footballTeam.getTeamBudget());
+        footballTeamDTO.setYearOfFoundation(footballTeam.getYearOfFoundation());
+        footballTeamDTO.setFootballers(footballTeam.getFootballers());
 
-        return footballTeamModel;
+        return footballTeamDTO;
     }
 
     @Override
-    public FootballTeam footballTeamModelToFootballTeam(FootballTeamModel footballTeamModel) {
+    public FootballTeam footballTeamDTOToFootballTeam(FootballTeamDTO footballTeamDTO) {
         FootballTeam footballTeam = new FootballTeam();
-        footballTeam.setTeamName(footballTeamModel.getTeamName());
-        footballTeam.setTeamBudget(footballTeamModel.getTeamBudget());
-        footballTeam.setYearOfFoundation(footballTeamModel.getYearOfFoundation());
-        footballTeam.setFootballers(footballTeamModel.getFootballers());
+        footballTeam.setTeamName(footballTeamDTO.getTeamName());
+        footballTeam.setTeamBudget(footballTeamDTO.getTeamBudget());
+        footballTeam.setYearOfFoundation(footballTeamDTO.getYearOfFoundation());
+        footballTeam.setFootballers(footballTeamDTO.getFootballers());
 
         return footballTeam;
     }

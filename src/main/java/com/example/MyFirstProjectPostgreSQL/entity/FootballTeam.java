@@ -2,13 +2,16 @@ package com.example.MyFirstProjectPostgreSQL.entity;
 
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -16,18 +19,19 @@ import java.util.Set;
 public class FootballTeam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @NotBlank(message = "Team name can not be null or blank.")
-    String teamName;
+    private String teamName;
 
     @Min(1500)
-    Integer yearOfFoundation;
+    private Integer yearOfFoundation;
 
     @Min(0)
-    Long teamBudget;
+    private Long teamBudget;
 
-    @OneToMany(mappedBy="footballTeam")
-   private Set<Footballer> footballers;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fb_fid",referencedColumnName = "id")
+    private Set<Footballer> footballers = new HashSet<>();
 
 }
