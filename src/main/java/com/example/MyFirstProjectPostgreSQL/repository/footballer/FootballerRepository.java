@@ -15,5 +15,5 @@ public interface FootballerRepository extends PagingAndSortingRepository<Footbal
 
     List<Footballer> findAllByWorkingLegAndAge(String workingLeg, Integer age, Pageable pageable);
 
-    List<Footballer> findAllByFootballTeam(String footballTeam, Pageable pageable);
+    List<Footballer> findAllByFootballTeam(String footballTeam, Pageable pageable); //todo Тип даних явно не стрінг...?
 }

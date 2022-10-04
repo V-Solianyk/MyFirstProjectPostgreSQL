@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -30,8 +29,9 @@ public class FootballTeam {
     @Min(0)
     private Long teamBudget;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fb_fid",referencedColumnName = "id")
+    @OneToMany(
+            mappedBy = "footballTeam",
+            cascade = CascadeType.ALL)
     private Set<Footballer> footballers = new HashSet<>();
 
 }

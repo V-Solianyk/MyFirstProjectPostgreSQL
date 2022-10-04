@@ -3,10 +3,10 @@ package com.example.MyFirstProjectPostgreSQL.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -32,6 +32,7 @@ public class Footballer {
 
     private String workingLeg;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "footballTeam_id")
     private FootballTeam footballTeam;
 }
