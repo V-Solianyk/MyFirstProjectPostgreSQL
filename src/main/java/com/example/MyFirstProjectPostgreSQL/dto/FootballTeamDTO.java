@@ -1,6 +1,5 @@
 package com.example.MyFirstProjectPostgreSQL.dto;
 
-import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
 import lombok.Data;
 
 import java.util.Set;
@@ -13,6 +12,6 @@ public class FootballTeamDTO {
 
     private Long teamBudget;
 
-    private Set<Footballer> footballers;
+    private Set<Long> footballers_id;
 
 }

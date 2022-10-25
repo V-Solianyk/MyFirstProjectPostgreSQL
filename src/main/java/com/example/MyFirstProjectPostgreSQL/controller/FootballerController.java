@@ -1,6 +1,7 @@
 package com.example.MyFirstProjectPostgreSQL.controller;
 
 import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
+import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import com.example.MyFirstProjectPostgreSQL.service.footballer.FootballerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -44,19 +45,21 @@ public class FootballerController {
         return ResponseEntity.ok(footballerService.getAllByOverallRating(overallRating, pageable));
     }
 
-    @GetMapping("/overallRatingAndAge")
-    ResponseEntity<List<FootballerDTO>> getAllByWorkingLegAndAge(@RequestParam("workingLeg") String leg,
+    @GetMapping("/workingLegIsRightAndAge")
+    ResponseEntity<List<FootballerDTO>> getAllByWorkingLegAndAge(@RequestParam("workingLegIsRight") Boolean workingLegIsRight,
                                                                  @RequestParam("age") Integer age, Pageable pageable) {
-        return ResponseEntity.ok(footballerService.getAllByWorkingLegAndAge(leg, age, pageable));
+        return ResponseEntity.ok(footballerService.getAllByWorkingLegIsRightAndAge(workingLegIsRight, age, pageable));
     }
 
-    @GetMapping("/workingKeg")
-    ResponseEntity<List<FootballerDTO>> getAllByWorkingLeg(@RequestParam("workingLeg") String leg, Pageable pageable) {
-        return ResponseEntity.ok(footballerService.getAllByWorkingLeg(leg, pageable));
+    @GetMapping("/workingLegIsRight")
+    ResponseEntity<List<FootballerDTO>> getAllByWorkingLegIsRight
+            (@RequestParam("workingLegIsRight") Boolean workingLegIsRight, Pageable pageable) {
+        return ResponseEntity.ok(footballerService.getAllByWorkingLegIsRight(workingLegIsRight, pageable));
     }
 
     @GetMapping("/footballTeam")
-    ResponseEntity<List<FootballerDTO>> getAllByFootballTeam(@RequestParam("footballTeam") String team, Pageable pageable) {
+    ResponseEntity<List<FootballerDTO>> getAllByFootballTeam(@RequestParam("footballTeam") FootballTeam team,
+                                                             Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByFootballTeam(team, pageable));
     }
 
@@ -66,13 +69,13 @@ public class FootballerController {
     }
 
     @PostMapping
-    ResponseEntity<FootballerDTO> create(@RequestBody FootballerDTO footballerModel) {
-        return new ResponseEntity<FootballerDTO>(footballerService.create(footballerModel), HttpStatus.CREATED);
+    ResponseEntity<FootballerDTO> create(@RequestBody FootballerDTO footballerDTO) {
+        return new ResponseEntity<FootballerDTO>(footballerService.create(footballerDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<FootballerDTO> update(@PathVariable Long id, @RequestBody FootballerDTO footballerModel) {
-        return ResponseEntity.ok(footballerService.update(id, footballerModel));
+    ResponseEntity<FootballerDTO> update(@PathVariable Long id, @RequestBody FootballerDTO footballerDTO) {
+        return ResponseEntity.ok(footballerService.update(id, footballerDTO));
     }
 
     @DeleteMapping("/{id}")

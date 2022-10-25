@@ -1,6 +1,5 @@
 package com.example.MyFirstProjectPostgreSQL.dto;
 
-import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import lombok.Data;
 
 @Data
@@ -11,7 +10,7 @@ public class FootballerDTO {
 
     private Integer overallRating;
 
-    private String workingLeg;
+    private Boolean WorkingLegIsRight = true;
 
-    private FootballTeam footballTeam;
+    private Long id_footballTeam;
 }

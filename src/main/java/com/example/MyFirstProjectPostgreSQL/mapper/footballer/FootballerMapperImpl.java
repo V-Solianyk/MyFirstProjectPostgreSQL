@@ -12,8 +12,8 @@ public class FootballerMapperImpl implements FootballerMapper {
         footballerDTO.setAge(footballer.getAge());
         footballerDTO.setSurname(footballer.getSurname());
         footballerDTO.setOverallRating(footballer.getOverallRating());
-        footballerDTO.setWorkingLeg(footballer.getWorkingLeg());
-        footballerDTO.setFootballTeam(footballer.getFootballTeam());
+        footballerDTO.setWorkingLegIsRight((footballer.getWorkingLegIsRight()));
+        footballerDTO.setId_footballTeam(footballer.getFootballTeam().getId());
 
         return footballerDTO;
     }
@@ -24,8 +24,7 @@ public class FootballerMapperImpl implements FootballerMapper {
         footballer.setAge(footballerDTO.getAge());
         footballer.setSurname(footballerDTO.getSurname());
         footballer.setOverallRating(footballerDTO.getOverallRating());
-        footballer.setWorkingLeg(footballerDTO.getWorkingLeg());
-        footballer.setFootballTeam(footballerDTO.getFootballTeam());
+        footballer.setWorkingLegIsRight(footballerDTO.getWorkingLegIsRight());
 
         return footballer;
     }

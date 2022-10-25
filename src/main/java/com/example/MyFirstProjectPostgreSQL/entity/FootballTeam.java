@@ -20,7 +20,7 @@ public class FootballTeam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Team name can not be null or blank.")
+    @NotBlank(message = "The team's name can not be null or blank.")
     private String teamName;
 
     @Min(1500)
