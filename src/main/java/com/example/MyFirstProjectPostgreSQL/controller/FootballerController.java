@@ -80,6 +80,8 @@ public class FootballerController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<FootballerDTO> delete(@PathVariable Long id) {
+        footballerService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -34,9 +35,24 @@ public class Footballer {
     @Max(99)
     private Integer overallRating;
 
-    private Boolean WorkingLegIsRight = true;
+    private Boolean workingLegIsRight = true;
 
     @ManyToOne
-    @JoinColumn(name = "footballTeam_id")
+    @JoinColumn(name = "footballTeamId")
     private FootballTeam footballTeam;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Footballer that = (Footballer) o;
+        return Objects.equals(id, that.id) && Objects.equals(surname, that.surname) && Objects.equals(age, that.age)
+                && Objects.equals(overallRating, that.overallRating) && Objects.equals(workingLegIsRight,
+                that.workingLegIsRight);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, surname, age, overallRating, workingLegIsRight);
+    }
 }

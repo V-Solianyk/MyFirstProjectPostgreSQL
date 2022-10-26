@@ -68,6 +68,7 @@ public class FootballTeamServiceImpl implements FootballTeamService {
 
         FootballTeam footballTeam = footballTeamMapper.footballTeamDTOToFootballTeam(footballTeamDTO);
         footballTeam.setId(id);
+        footballTeamRepository.save(footballTeam);
 
         return footballTeamDTO;
     }

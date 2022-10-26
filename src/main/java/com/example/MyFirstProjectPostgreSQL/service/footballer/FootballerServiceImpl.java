@@ -4,6 +4,7 @@ import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
 import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
 import com.example.MyFirstProjectPostgreSQL.mapper.footballer.FootballerMapper;
+import com.example.MyFirstProjectPostgreSQL.repository.footballTeam.FootballTeamRepository;
 import com.example.MyFirstProjectPostgreSQL.repository.footballer.FootballerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -11,17 +12,21 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class FootballerServiceImpl implements FootballerService {
     private final FootballerRepository footballerRepository;
     private final FootballerMapper footballerMapper;
+    private final FootballTeamRepository footballTeamRepository;
 
     @Autowired
-    public FootballerServiceImpl(FootballerRepository footballerRepository, FootballerMapper footballerMapper) {
+    public FootballerServiceImpl(FootballerRepository footballerRepository, FootballerMapper footballerMapper,
+                                 FootballTeamRepository footballTeamRepository) {
         this.footballerRepository = footballerRepository;
         this.footballerMapper = footballerMapper;
+        this.footballTeamRepository = footballTeamRepository;
     }
 
     @Override
@@ -80,6 +85,16 @@ public class FootballerServiceImpl implements FootballerService {
 
         footballerRepository.save(footballer);
 
+        footballTeamRepository.findById(footballerDTO.getFootballTeamId())
+                .ifPresent(footballTeam -> {
+
+                    footballer.setFootballTeam(footballTeam);
+                    Set<Footballer> footballers = footballTeam.getFootballers();
+                    footballers.add(footballer);
+                    footballTeam.setFootballers(footballers);
+                    footballTeamRepository.save(footballTeam);
+                });
+
         return footballerDTO;
     }
 
@@ -90,6 +105,16 @@ public class FootballerServiceImpl implements FootballerService {
 
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
         footballer.setId(id);
+
+        footballTeamRepository.findById(footballerDTO.getFootballTeamId())
+                .ifPresent(footballTeam -> {
+                    footballer.setFootballTeam(footballTeam);
+                    Set<Footballer> footballers = footballTeam.getFootballers();
+                    footballers.add(footballer);
+                    footballTeam.setFootballers(footballers);
+                    footballTeamRepository.save(footballTeam);
+                });
+        footballerRepository.save(footballer);
 
         return footballerDTO;
     }

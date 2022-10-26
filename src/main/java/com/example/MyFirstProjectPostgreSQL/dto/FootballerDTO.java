@@ -10,7 +10,7 @@ public class FootballerDTO {
 
     private Integer overallRating;
 
-    private Boolean WorkingLegIsRight = true;
+    private Boolean workingLegIsRight = true;
 
-    private Long id_footballTeam;
+    private Long footballTeamId;
 }

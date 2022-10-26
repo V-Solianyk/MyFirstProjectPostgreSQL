@@ -61,6 +61,8 @@ public class FootballTeamController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<FootballTeamDTO> delete(@PathVariable Long id) {
+        footballTeamService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 

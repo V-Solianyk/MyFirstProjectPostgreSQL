@@ -12,7 +12,6 @@ public class FootballTeamMapperImpl implements FootballTeamMapper {
         footballTeamDTO.setTeamName(footballTeam.getTeamName());
         footballTeamDTO.setTeamBudget(footballTeam.getTeamBudget());
         footballTeamDTO.setYearOfFoundation(footballTeam.getYearOfFoundation());
-//        footballTeamDTO.setFootballers_id(footballTeam.getFootballers());
 
         return footballTeamDTO;
     }
@@ -23,7 +22,6 @@ public class FootballTeamMapperImpl implements FootballTeamMapper {
         footballTeam.setTeamName(footballTeamDTO.getTeamName());
         footballTeam.setTeamBudget(footballTeamDTO.getTeamBudget());
         footballTeam.setYearOfFoundation(footballTeamDTO.getYearOfFoundation());
-//        footballTeam.setFootballers(footballTeamDTO.getFootballers_id());
 
         return footballTeam;
     }

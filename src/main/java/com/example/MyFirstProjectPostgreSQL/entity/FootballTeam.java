@@ -34,4 +34,14 @@ public class FootballTeam {
             cascade = CascadeType.ALL)
     private Set<Footballer> footballers = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return "FootballTeam{" +
+                "id=" + id +
+                ", teamName='" + teamName + '\'' +
+                ", yearOfFoundation=" + yearOfFoundation +
+                ", teamBudget=" + teamBudget +
+                '}';
+    }
+
 }
