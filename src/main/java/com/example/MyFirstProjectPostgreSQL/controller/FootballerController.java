@@ -58,7 +58,7 @@ public class FootballerController {
     }
 
     @GetMapping("/footballTeamId")
-    ResponseEntity<List<FootballerDTO>> getAllByFootballTeamId(@PathVariable("footballTeamId") Long footballTeamId,
+    ResponseEntity<List<FootballerDTO>> getAllByFootballTeamId(@RequestParam("footballTeamId") Long footballTeamId,
                                                                Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByFootballTeamId(footballTeamId, pageable));
     }

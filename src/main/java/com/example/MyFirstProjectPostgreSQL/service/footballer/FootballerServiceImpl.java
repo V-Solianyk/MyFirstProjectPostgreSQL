@@ -1,7 +1,6 @@
 package com.example.MyFirstProjectPostgreSQL.service.footballer;
 
 import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
-import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
 import com.example.MyFirstProjectPostgreSQL.mapper.footballer.FootballerMapper;
 import com.example.MyFirstProjectPostgreSQL.repository.footballTeam.FootballTeamRepository;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
