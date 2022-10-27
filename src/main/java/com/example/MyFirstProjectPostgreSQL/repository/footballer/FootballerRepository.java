@@ -1,6 +1,5 @@
 package com.example.MyFirstProjectPostgreSQL.repository.footballer;
 
-import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +15,5 @@ public interface FootballerRepository extends JpaRepository<Footballer, Long> {
 
     List<Footballer> findAllByWorkingLegIsRightAndAge(Boolean workingLegIsRight, Integer age, Pageable pageable);
 
-    List<Footballer> findAllByFootballTeam(FootballTeam footballTeam, Pageable pageable);
+    List<Footballer> findAllByFootballTeamId(Long footballTeamId, Pageable pageable);
 }

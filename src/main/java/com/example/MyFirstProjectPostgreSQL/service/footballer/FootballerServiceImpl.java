@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -65,8 +66,8 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
-    public List<FootballerDTO> getAllByFootballTeam(FootballTeam footballTeam, Pageable pageable) {
-        return footballerRepository.findAllByFootballTeam(footballTeam, pageable).stream()
+    public List<FootballerDTO> getAllByFootballTeamId(Long footballTeamId, Pageable pageable) {
+        return footballerRepository.findAllByFootballTeamId(footballTeamId,pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }

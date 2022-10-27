@@ -17,7 +17,7 @@ public interface FootballerService {
 
     List<FootballerDTO> getAllByWorkingLegIsRightAndAge(Boolean workingLegIsRight, Integer age, Pageable pageable);
 
-    List<FootballerDTO> getAllByFootballTeam(FootballTeam footballTeam, Pageable pageable);
+    List<FootballerDTO> getAllByFootballTeamId(Long footballTeamId, Pageable pageable);
 
     FootballerDTO get(Long id);
 

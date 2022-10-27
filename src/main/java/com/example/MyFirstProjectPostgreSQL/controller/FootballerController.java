@@ -57,10 +57,10 @@ public class FootballerController {
         return ResponseEntity.ok(footballerService.getAllByWorkingLegIsRight(workingLegIsRight, pageable));
     }
 
-    @GetMapping("/footballTeam")
-    ResponseEntity<List<FootballerDTO>> getAllByFootballTeam(@RequestParam("footballTeam") FootballTeam team,
-                                                             Pageable pageable) {
-        return ResponseEntity.ok(footballerService.getAllByFootballTeam(team, pageable));
+    @GetMapping("/footballTeamId")
+    ResponseEntity<List<FootballerDTO>> getAllByFootballTeamId(@PathVariable("footballTeamId") Long footballTeamId,
+                                                               Pageable pageable) {
+        return ResponseEntity.ok(footballerService.getAllByFootballTeamId(footballTeamId, pageable));
     }
 
     @GetMapping("/{id}")
