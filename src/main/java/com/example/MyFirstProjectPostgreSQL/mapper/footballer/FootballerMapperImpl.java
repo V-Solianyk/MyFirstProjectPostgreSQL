@@ -13,6 +13,9 @@ public class FootballerMapperImpl implements FootballerMapper {
         footballerDTO.setSurname(footballer.getSurname());
         footballerDTO.setOverallRating(footballer.getOverallRating());
         footballerDTO.setWorkingLegIsRight((footballer.getWorkingLegIsRight()));
+        if (footballer.getFootballTeam() != null) {
+            footballerDTO.setFootballTeamId(footballer.getFootballTeam().getId());
+        }
 
         return footballerDTO;
     }

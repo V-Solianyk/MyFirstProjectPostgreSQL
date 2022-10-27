@@ -85,15 +85,16 @@ public class FootballerServiceImpl implements FootballerService {
 
         footballerRepository.save(footballer);
 
-        footballTeamRepository.findById(footballerDTO.getFootballTeamId())
-                .ifPresent(footballTeam -> {
-
-                    footballer.setFootballTeam(footballTeam);
-                    Set<Footballer> footballers = footballTeam.getFootballers();
-                    footballers.add(footballer);
-                    footballTeam.setFootballers(footballers);
-                    footballTeamRepository.save(footballTeam);
-                });
+        if (footballerDTO.getFootballTeamId() != null) {
+            footballTeamRepository.findById(footballerDTO.getFootballTeamId())
+                    .ifPresent(footballTeam -> {
+                        footballer.setFootballTeam(footballTeam);
+                        Set<Footballer> footballers = footballTeam.getFootballers();
+                        footballers.add(footballer);
+                        footballTeam.setFootballers(footballers);
+                        footballTeamRepository.save(footballTeam);
+                    });
+        }
 
         return footballerDTO;
     }
@@ -105,17 +106,18 @@ public class FootballerServiceImpl implements FootballerService {
 
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
         footballer.setId(id);
-
-        footballTeamRepository.findById(footballerDTO.getFootballTeamId())
-                .ifPresent(footballTeam -> {
-                    footballer.setFootballTeam(footballTeam);
-                    Set<Footballer> footballers = footballTeam.getFootballers();
-                    footballers.add(footballer);
-                    footballTeam.setFootballers(footballers);
-                    footballTeamRepository.save(footballTeam);
-                });
         footballerRepository.save(footballer);
 
+        if (footballerDTO.getFootballTeamId() != null) {
+            footballTeamRepository.findById(footballerDTO.getFootballTeamId())
+                    .ifPresent(footballTeam -> {
+                        footballer.setFootballTeam(footballTeam);
+                        Set<Footballer> footballers = footballTeam.getFootballers();
+                        footballers.add(footballer);
+                        footballTeam.setFootballers(footballers);
+                        footballTeamRepository.save(footballTeam);
+                    });
+        }
         return footballerDTO;
     }
 
