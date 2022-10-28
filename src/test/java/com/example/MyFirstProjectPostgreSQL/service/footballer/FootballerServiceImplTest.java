@@ -1,6 +1,5 @@
 package com.example.MyFirstProjectPostgreSQL.service.footballer;
 
-import com.example.MyFirstProjectPostgreSQL.dto.FootballTeamDTO;
 import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
 import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
@@ -29,28 +28,29 @@ public class FootballerServiceImplTest {
     private Footballer footballer;
     private FootballerDTO footballerDTO;
     private FootballTeam footballTeam;
-    private FootballTeamDTO footballTeamDTO;
     private Pageable pageable;
     private static final int AGE = 35;
     private static final int OVERALLRATING = 91;
-   private static final Boolean WORKINGLEGISRIGHT = false;
-   private static final Long EXISTID = 100L;
-   private static final Long NOTEXISTID = 666L;
+    private static final String SURNAME = "Messi";
+    private static final Boolean WORKINGLEGISRIGHT = false;
+    private static final Long EXISTID = 100L;
+    private static final Long NOTEXISTID = 666L;
 
     @BeforeEach
     void before() {
         footballTeam = new FootballTeam();
         footballTeam.setId(1L);
-        footballTeamDTO = new FootballTeamDTO();
 
         footballer = new Footballer();
         footballer.setId(EXISTID);
         footballer.setAge(AGE);
+        footballer.setSurname(SURNAME);
         footballer.setOverallRating(OVERALLRATING);
         footballer.setWorkingLegIsRight(WORKINGLEGISRIGHT);
 
         footballerDTO = new FootballerDTO();
         footballerDTO.setAge(footballer.getAge());
+        footballerDTO.setSurname(footballer.getSurname());
         footballerDTO.setOverallRating(footballer.getOverallRating());
         footballerDTO.setWorkingLegIsRight(footballer.getWorkingLegIsRight());
 
@@ -85,6 +85,21 @@ public class FootballerServiceImplTest {
         Assertions.assertEquals(2, allByAge.size());
         Assertions.assertEquals(AGE, allByAge.get(0).getAge());
         Assertions.assertEquals(AGE, allByAge.get(1).getAge());
+    }
+
+    @Test
+    void getAllByTextContainsIgnoreCase() {
+        Mockito.when(footballerRepository.findAllBySurnameContainsIgnoreCase(SURNAME, pageable))
+                .thenReturn(List.of(footballer, footballer));
+
+        Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
+                .thenReturn(footballerDTO, footballerDTO);
+
+        List<FootballerDTO> response = footballerService.getAllBySurnameContainsIgnoreCase(SURNAME, pageable);
+
+        Assertions.assertEquals(2, response.size());
+        Assertions.assertEquals(SURNAME, response.get(0).getSurname());
+        Assertions.assertEquals(SURNAME, response.get(1).getSurname());
     }
 
     @Test
@@ -138,6 +153,8 @@ public class FootballerServiceImplTest {
     void getAllByFootballTeamId() {
         Long footballTeamId = 1L;
 
+        footballerDTO.setFootballTeamId(footballTeamId);
+
         Mockito.when(footballerRepository.findAllByFootballTeamId(footballTeamId, pageable))
                 .thenReturn(List.of(footballer, footballer));
 
@@ -175,6 +192,7 @@ public class FootballerServiceImplTest {
         FootballerDTO response = footballerService.get(EXISTID);
 
         Assertions.assertEquals(AGE, response.getAge());
+        Assertions.assertEquals(SURNAME, response.getSurname());
         Assertions.assertEquals(OVERALLRATING, response.getOverallRating());
         Assertions.assertEquals(WORKINGLEGISRIGHT, response.getWorkingLegIsRight());
     }
@@ -190,6 +208,7 @@ public class FootballerServiceImplTest {
         FootballerDTO response = footballerService.create(footballerDTO);
 
         Assertions.assertEquals(AGE, response.getAge());
+        Assertions.assertEquals(SURNAME, response.getSurname());
         Assertions.assertEquals(OVERALLRATING, response.getOverallRating());
         Assertions.assertEquals(WORKINGLEGISRIGHT, response.getWorkingLegIsRight());
     }
@@ -197,7 +216,6 @@ public class FootballerServiceImplTest {
     @Test
     void createWithFootballTeamId() {
         footballerDTO.setFootballTeamId(footballTeam.getId());
-        footballer.setFootballTeam(footballTeam);
 
         Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
                 .thenReturn(footballer);
@@ -208,6 +226,10 @@ public class FootballerServiceImplTest {
         Mockito.when(footballTeamRepository.findById(footballerDTO.getFootballTeamId()))
                 .thenReturn(Optional.of(footballTeam));
 
+        FootballerDTO result = footballerService.create(footballerDTO);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(footballerDTO, result);
         Assertions.assertEquals(footballer.getFootballTeam(), footballTeam);
         Assertions.assertTrue(footballTeam.getFootballers().contains(footballer));
         Mockito.verify(footballTeamRepository).save(footballTeam);
@@ -240,13 +262,58 @@ public class FootballerServiceImplTest {
         FootballerDTO updateResult = footballerService.update(EXISTID, footballerDTO);
 
         Assertions.assertEquals(AGE, updateResult.getAge());
+        Assertions.assertEquals(SURNAME, updateResult.getSurname());
         Assertions.assertEquals(OVERALLRATING, updateResult.getOverallRating());
         Assertions.assertEquals(WORKINGLEGISRIGHT, updateResult.getWorkingLegIsRight());
     }
 
     @Test
     void updateExistIdAndWithFootballTeamId() {
-        //todo
+        footballerDTO.setFootballTeamId(footballTeam.getId());
+
+        Mockito.when(footballerRepository.findById(EXISTID))
+                .thenReturn(Optional.of(footballer));
+
+        Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
+                .thenReturn(footballer);
+
+        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
+                .thenReturn(footballer);
+
+        Mockito.when(footballTeamRepository.findById(footballerDTO.getFootballTeamId()))
+                .thenReturn(Optional.of(footballTeam));
+
+        FootballerDTO response = footballerService.update(EXISTID, footballerDTO);
+
+        Assertions.assertEquals(footballerDTO, response);
+        Assertions.assertEquals(footballer.getFootballTeam(), footballTeam);
+        Assertions.assertTrue(footballTeam.getFootballers().contains(footballer));
+        Assertions.assertEquals(AGE, response.getAge());
+        Assertions.assertEquals(SURNAME, response.getSurname());
+        Assertions.assertEquals(OVERALLRATING, response.getOverallRating());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, response.getWorkingLegIsRight());
+        Mockito.verify(footballTeamRepository).save(footballTeam);
     }
 
+    @Test
+    void deleteNotExistId() {
+        String expected = "The footballer does not exist for this ID.";
+
+        Mockito.when(footballerRepository.findById(NOTEXISTID))
+                .thenReturn(Optional.empty());
+
+        EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> footballerService.delete(NOTEXISTID));
+
+        Assertions.assertEquals(expected, notFoundException.getMessage());
+    }
+
+    @Test
+    void deleteExistId() {
+        Mockito.when(footballerRepository.findById(EXISTID))
+                .thenReturn(Optional.of(footballer));
+
+        footballerRepository.deleteById(EXISTID);
+        Mockito.verify(footballerRepository).deleteById(EXISTID);
+    }
 }

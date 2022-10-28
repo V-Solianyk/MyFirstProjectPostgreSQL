@@ -13,6 +13,8 @@ public interface FootballerService {
 
     List<FootballerDTO> getAllByOverallRating(int overallRating, Pageable pageable);
 
+    List<FootballerDTO> getAllBySurnameContainsIgnoreCase(String keyword, Pageable pageable);
+
     List<FootballerDTO> getAllByWorkingLegIsRight(Boolean workingLegIsRight, Pageable pageable);
 
     List<FootballerDTO> getAllByWorkingLegIsRightAndAge(Boolean workingLegIsRight, int age, Pageable pageable);

@@ -45,6 +45,12 @@ public class FootballerController {
         return ResponseEntity.ok(footballerService.getAllByOverallRating(overallRating, pageable));
     }
 
+    @GetMapping("/keyword")
+    ResponseEntity<List<FootballerDTO>> getAllBySurnameContainsIgnoreCase(@RequestParam("keyword") String keyword,
+                                                                          Pageable pageable) {
+        return ResponseEntity.ok(footballerService.getAllBySurnameContainsIgnoreCase(keyword, pageable));
+    }
+
     @GetMapping("/workingLegIsRightAndAge")
     ResponseEntity<List<FootballerDTO>> getAllByWorkingLegAndAge(@RequestParam("workingLegIsRight") Boolean workingLegIsRight,
                                                                  @RequestParam("age") Integer age, Pageable pageable) {

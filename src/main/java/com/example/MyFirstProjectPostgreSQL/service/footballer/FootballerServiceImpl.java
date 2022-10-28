@@ -50,6 +50,13 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
+    public List<FootballerDTO> getAllBySurnameContainsIgnoreCase(String keyword, Pageable pageable) {
+        return footballerRepository.findAllBySurnameContainsIgnoreCase(keyword, pageable).stream()
+                .map(footballerMapper::footballerToFootballerDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<FootballerDTO> getAllByWorkingLegIsRight(Boolean isRight, Pageable pageable) {
         return footballerRepository.findAllByWorkingLegIsRight(isRight, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
@@ -65,7 +72,7 @@ public class FootballerServiceImpl implements FootballerService {
 
     @Override
     public List<FootballerDTO> getAllByFootballTeamId(Long footballTeamId, Pageable pageable) {
-        return footballerRepository.findAllByFootballTeamId(footballTeamId,pageable).stream()
+        return footballerRepository.findAllByFootballTeamId(footballTeamId, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
@@ -81,7 +88,6 @@ public class FootballerServiceImpl implements FootballerService {
     @Override
     public FootballerDTO create(FootballerDTO footballerDTO) {
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
-
         footballerRepository.save(footballer);
 
         if (footballerDTO.getFootballTeamId() != null) {
