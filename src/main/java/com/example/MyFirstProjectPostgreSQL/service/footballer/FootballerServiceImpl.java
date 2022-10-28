@@ -36,14 +36,14 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
-    public List<FootballerDTO> getAllByAge(Integer age, Pageable pageable) {
+    public List<FootballerDTO> getAllByAge(int age, Pageable pageable) {
         return footballerRepository.findAllByAge(age, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballerDTO> getAllByOverallRating(Integer overallRating, Pageable pageable) {
+    public List<FootballerDTO> getAllByOverallRating(int overallRating, Pageable pageable) {
         return footballerRepository.findAllByOverallRating(overallRating, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
-    public List<FootballerDTO> getAllByWorkingLegIsRightAndAge(Boolean isRight, Integer age, Pageable pageable) {
+    public List<FootballerDTO> getAllByWorkingLegIsRightAndAge(Boolean isRight, int age, Pageable pageable) {
         return footballerRepository.findAllByWorkingLegIsRightAndAge(isRight, age, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());

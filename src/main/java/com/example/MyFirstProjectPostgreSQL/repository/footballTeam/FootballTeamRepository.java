@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FootballTeamRepository extends JpaRepository<FootballTeam, Long> {
-    List<FootballTeam> findAllByTeamBudget(Integer teamBudget, Pageable pageable);
+    List<FootballTeam> findAllByTeamBudget(long teamBudget, Pageable pageable);
 
-    List<FootballTeam> findAllByYearOfFoundation(Integer yearOfFoundation, Pageable pageable);
+    List<FootballTeam> findAllByYearOfFoundation(int yearOfFoundation, Pageable pageable);
 }

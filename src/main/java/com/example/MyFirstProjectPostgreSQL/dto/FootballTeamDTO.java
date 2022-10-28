@@ -6,7 +6,7 @@ import lombok.Data;
 public class FootballTeamDTO {
     private String teamName;
 
-    private Integer yearOfFoundation;
+    private int yearOfFoundation;
 
-    private Long teamBudget;
+    private long teamBudget;
 }

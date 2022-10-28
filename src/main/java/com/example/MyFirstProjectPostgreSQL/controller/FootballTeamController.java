@@ -39,12 +39,12 @@ public class FootballTeamController {
     }
 
     @GetMapping("/teamBudget")
-    ResponseEntity<List<FootballTeamDTO>> getAllByTeamBudget(@RequestParam("teamBudget") Integer budget, Pageable pageable) {
+    ResponseEntity<List<FootballTeamDTO>> getAllByTeamBudget(@RequestParam("teamBudget") long budget, Pageable pageable) {
         return ResponseEntity.ok(footballTeamService.getAllByTeamBudget(budget, pageable));
     }
 
     @GetMapping("/yearOfFoundation")
-    ResponseEntity<List<FootballTeamDTO>> getAllByYearOfFoundation(@RequestParam("yearOfFoundation") Integer year,
+    ResponseEntity<List<FootballTeamDTO>> getAllByYearOfFoundation(@RequestParam("yearOfFoundation") int year,
                                                                    Pageable pageable) {
         return ResponseEntity.ok(footballTeamService.getAllByYearOfFoundation(year, pageable));
     }

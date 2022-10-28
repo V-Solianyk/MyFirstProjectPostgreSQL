@@ -7,13 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FootballerRepository extends JpaRepository<Footballer, Long> {
-    List<Footballer> findAllByAge(Integer age, Pageable pageable);
+    List<Footballer> findAllByAge(int age, Pageable pageable);
 
     List<Footballer> findAllByWorkingLegIsRight(Boolean workingLegIsRight, Pageable pageable);
 
-    List<Footballer> findAllByOverallRating(Integer age, Pageable pageable);
+    List<Footballer> findAllByOverallRating(int age, Pageable pageable);
 
-    List<Footballer> findAllByWorkingLegIsRightAndAge(Boolean workingLegIsRight, Integer age, Pageable pageable);
+    List<Footballer> findAllByWorkingLegIsRightAndAge(Boolean workingLegIsRight, int age, Pageable pageable);
 
     List<Footballer> findAllByFootballTeamId(Long footballTeamId, Pageable pageable);
 }

@@ -39,14 +39,14 @@ public class FootballTeamServiceImpl implements FootballTeamService {
     }
 
     @Override
-    public List<FootballTeamDTO> getAllByTeamBudget(Integer teamBudget, Pageable pageable) {
+    public List<FootballTeamDTO> getAllByTeamBudget(long teamBudget, Pageable pageable) {
         return footballTeamRepository.findAllByTeamBudget(teamBudget, pageable).stream()
                 .map(footballTeamMapper::footballTeamToFootballTeamDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballTeamDTO> getAllByYearOfFoundation(Integer yearOfFoundation, Pageable pageable) {
+    public List<FootballTeamDTO> getAllByYearOfFoundation(int yearOfFoundation, Pageable pageable) {
         return footballTeamRepository.findAllByYearOfFoundation(yearOfFoundation, pageable).stream()
                 .map(footballTeamMapper::footballTeamToFootballTeamDTO)
                 .collect(Collectors.toList());

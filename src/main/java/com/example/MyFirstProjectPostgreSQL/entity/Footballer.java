@@ -29,11 +29,11 @@ public class Footballer {
 
     @Min(16)
     @Max(40)
-    private Integer age;
+    private int age;
 
     @Min(45)
     @Max(99)
-    private Integer overallRating;
+    private int overallRating;
 
     private Boolean workingLegIsRight = true;
 

@@ -31,6 +31,11 @@ public class FootballerServiceImplTest {
     private FootballTeam footballTeam;
     private FootballTeamDTO footballTeamDTO;
     private Pageable pageable;
+    private static final int AGE = 35;
+    private static final int OVERALLRATING = 91;
+   private static final Boolean WORKINGLEGISRIGHT = false;
+   private static final Long EXISTID = 100L;
+   private static final Long NOTEXISTID = 666L;
 
     @BeforeEach
     void before() {
@@ -39,24 +44,23 @@ public class FootballerServiceImplTest {
         footballTeamDTO = new FootballTeamDTO();
 
         footballer = new Footballer();
-        footballer.setId(100L);
-        footballer.setAge(35);
-        footballer.setOverallRating(91);
-        footballer.setWorkingLegIsRight(false);
+        footballer.setId(EXISTID);
+        footballer.setAge(AGE);
+        footballer.setOverallRating(OVERALLRATING);
+        footballer.setWorkingLegIsRight(WORKINGLEGISRIGHT);
 
         footballerDTO = new FootballerDTO();
-        footballerDTO.setAge(35);
-        footballerDTO.setOverallRating(91);
-        footballerDTO.setWorkingLegIsRight(false);
-        footballerDTO.setFootballTeamId(footballTeam.getId());
+        footballerDTO.setAge(footballer.getAge());
+        footballerDTO.setOverallRating(footballer.getOverallRating());
+        footballerDTO.setWorkingLegIsRight(footballer.getWorkingLegIsRight());
 
         pageable = PageRequest.of(0, 100);
-
     }
 
     @Test
     void getAll() {
-        Mockito.when(footballerRepository.findAll()).thenReturn(List.of(footballer, footballer));
+        Mockito.when(footballerRepository.findAll())
+                .thenReturn(List.of(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
                 .thenReturn(footballerDTO);
@@ -70,72 +74,64 @@ public class FootballerServiceImplTest {
 
     @Test
     void getAllByAge() {
-        Integer age = 35;
-
-        Mockito.when(footballerRepository.findAllByAge(age, pageable)).thenReturn(List.of(footballer, footballer));
-
-        Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
-                .thenReturn(footballerDTO);
-
-        List<FootballerDTO> allByAge = footballerService.getAllByAge(age, pageable);
-
-        Assertions.assertEquals(2, allByAge.size());
-        Assertions.assertEquals(age, allByAge.get(0).getAge());
-        Assertions.assertEquals(age, allByAge.get(1).getAge());
-    }
-
-    @Test
-    void getAllByOverallRating() {
-        Integer overallRating = 91;
-
-        Mockito.when(footballerRepository.findAllByOverallRating(overallRating, pageable))
+        Mockito.when(footballerRepository.findAllByAge(AGE, pageable))
                 .thenReturn(List.of(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
                 .thenReturn(footballerDTO);
 
-        List<FootballerDTO> allByOverallRating = footballerService.getAllByOverallRating(overallRating, pageable);
+        List<FootballerDTO> allByAge = footballerService.getAllByAge(AGE, pageable);
+
+        Assertions.assertEquals(2, allByAge.size());
+        Assertions.assertEquals(AGE, allByAge.get(0).getAge());
+        Assertions.assertEquals(AGE, allByAge.get(1).getAge());
+    }
+
+    @Test
+    void getAllByOverallRating() {
+        Mockito.when(footballerRepository.findAllByOverallRating(OVERALLRATING, pageable))
+                .thenReturn(List.of(footballer, footballer));
+
+        Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
+                .thenReturn(footballerDTO);
+
+        List<FootballerDTO> allByOverallRating = footballerService.getAllByOverallRating(OVERALLRATING, pageable);
 
         Assertions.assertEquals(2, allByOverallRating.size());
-        Assertions.assertEquals(overallRating, allByOverallRating.get(0).getOverallRating());
-        Assertions.assertEquals(overallRating, allByOverallRating.get(1).getOverallRating());
+        Assertions.assertEquals(OVERALLRATING, allByOverallRating.get(0).getOverallRating());
+        Assertions.assertEquals(OVERALLRATING, allByOverallRating.get(1).getOverallRating());
     }
 
     @Test
     void getAllByWorkingLegIsRight() {
-        Boolean workingLegIsRight = false;
-        Mockito.when(footballerRepository.findAllByWorkingLegIsRight(workingLegIsRight, pageable))
+        Mockito.when(footballerRepository.findAllByWorkingLegIsRight(WORKINGLEGISRIGHT, pageable))
                 .thenReturn(List.of(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
                 .thenReturn(footballerDTO, footballerDTO);
 
-        List<FootballerDTO> response = footballerService.getAllByWorkingLegIsRight(workingLegIsRight, pageable);
+        List<FootballerDTO> response = footballerService.getAllByWorkingLegIsRight(WORKINGLEGISRIGHT, pageable);
 
         Assertions.assertEquals(2, response.size());
-        Assertions.assertEquals(workingLegIsRight, response.get(0).getWorkingLegIsRight());
-        Assertions.assertEquals(workingLegIsRight, response.get(1).getWorkingLegIsRight());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, response.get(0).getWorkingLegIsRight());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, response.get(1).getWorkingLegIsRight());
     }
 
     @Test
     void getAllByWorkingLegIsRightAndAge() {
-        Integer age = 35;
-
-        Boolean workingLegIsRight = false;
-
-        Mockito.when(footballerRepository.findAllByWorkingLegIsRightAndAge(workingLegIsRight, age, pageable))
+        Mockito.when(footballerRepository.findAllByWorkingLegIsRightAndAge(WORKINGLEGISRIGHT, AGE, pageable))
                 .thenReturn(List.of(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
                 .thenReturn(footballerDTO);
 
-        List<FootballerDTO> response = footballerService.getAllByWorkingLegIsRightAndAge(workingLegIsRight, age, pageable);
+        List<FootballerDTO> response = footballerService.getAllByWorkingLegIsRightAndAge(WORKINGLEGISRIGHT, AGE, pageable);
 
         Assertions.assertEquals(2, response.size());
-        Assertions.assertEquals(age, response.get(0).getAge());
-        Assertions.assertEquals(age, response.get(1).getAge());
-        Assertions.assertEquals(workingLegIsRight, response.get(0).getWorkingLegIsRight());
-        Assertions.assertEquals(workingLegIsRight, response.get(1).getWorkingLegIsRight());
+        Assertions.assertEquals(AGE, response.get(0).getAge());
+        Assertions.assertEquals(AGE, response.get(1).getAge());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, response.get(0).getWorkingLegIsRight());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, response.get(1).getWorkingLegIsRight());
     }
 
     @Test
@@ -157,55 +153,100 @@ public class FootballerServiceImplTest {
 
     @Test
     void getNotExistId() {
-        long notExistId = 99L;
+        String expectedMassage = "The footballer not found for this id: " + NOTEXISTID;
 
-        String expectedMassage = "The footballer not found for this id: " + notExistId;
-
-        Mockito.when(footballerRepository.findById(notExistId)).thenReturn(Optional.empty());
+        Mockito.when(footballerRepository.findById(NOTEXISTID))
+                .thenReturn(Optional.empty());
 
         EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
-                () -> footballerService.get(notExistId));
+                () -> footballerService.get(NOTEXISTID));
 
         Assertions.assertEquals(expectedMassage, notFoundException.getMessage());
     }
 
     @Test
     void getExistId() {
-        Long existId = 100L;
+        Mockito.when(footballerRepository.findById(EXISTID))
+                .thenReturn(Optional.of(footballer));
 
-        Mockito.when(footballerRepository.findById(existId)).thenReturn(Optional.of(footballer));
+        Mockito.when(footballerMapper.footballerToFootballerDTO(footballer))
+                .thenReturn(footballerDTO);
 
-        Mockito.when(footballerMapper.footballerToFootballerDTO(footballer)).thenReturn(footballerDTO);
+        FootballerDTO response = footballerService.get(EXISTID);
 
-        FootballerDTO response = footballerService.get(existId);
-
-        Assertions.assertEquals(35, response.getAge());
-        Assertions.assertEquals(91, response.getOverallRating());
-        Assertions.assertEquals(false, response.getWorkingLegIsRight());
+        Assertions.assertEquals(AGE, response.getAge());
+        Assertions.assertEquals(OVERALLRATING, response.getOverallRating());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, response.getWorkingLegIsRight());
     }
 
     @Test
     void createWithoutFootballTeamId() {
-        Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO)).thenReturn(footballer);
+        Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
+                .thenReturn(footballer);
 
-        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class))).thenReturn(footballer);
+        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
+                .thenReturn(footballer);
 
         FootballerDTO response = footballerService.create(footballerDTO);
 
-        Assertions.assertEquals(35, response.getAge());
-        Assertions.assertEquals(91, response.getOverallRating());
-        Assertions.assertEquals(false, response.getWorkingLegIsRight());
+        Assertions.assertEquals(AGE, response.getAge());
+        Assertions.assertEquals(OVERALLRATING, response.getOverallRating());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, response.getWorkingLegIsRight());
     }
 
     @Test
     void createWithFootballTeamId() {
+        footballerDTO.setFootballTeamId(footballTeam.getId());
+        footballer.setFootballTeam(footballTeam);
 
-        Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO)).thenReturn(footballer);
+        Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
+                .thenReturn(footballer);
 
-        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class))).thenReturn(footballer);
+        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
+                .thenReturn(footballer);
 
-//        Mockito.when(footballTeamRepository.findById(footballerDTO.getFootballTeamId()))
+        Mockito.when(footballTeamRepository.findById(footballerDTO.getFootballTeamId()))
+                .thenReturn(Optional.of(footballTeam));
 
-
+        Assertions.assertEquals(footballer.getFootballTeam(), footballTeam);
+        Assertions.assertTrue(footballTeam.getFootballers().contains(footballer));
+        Mockito.verify(footballTeamRepository).save(footballTeam);
     }
+
+    @Test
+    void updateNotExistId() {
+        String expectedMessage = "The footballer not found for id: " + NOTEXISTID;
+
+        Mockito.when(footballerRepository.findById(NOTEXISTID))
+                .thenReturn(Optional.empty());
+
+        EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> footballerService.update(NOTEXISTID, footballerDTO));
+
+        Assertions.assertEquals(expectedMessage, notFoundException.getMessage());
+    }
+
+    @Test
+    void updateExistIdAndWithoutFootballTeamId() {
+        Mockito.when(footballerRepository.findById(EXISTID))
+                .thenReturn(Optional.of(footballer));
+
+        Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
+                .thenReturn(footballer);
+
+        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
+                .thenReturn(footballer);
+
+        FootballerDTO updateResult = footballerService.update(EXISTID, footballerDTO);
+
+        Assertions.assertEquals(AGE, updateResult.getAge());
+        Assertions.assertEquals(OVERALLRATING, updateResult.getOverallRating());
+        Assertions.assertEquals(WORKINGLEGISRIGHT, updateResult.getWorkingLegIsRight());
+    }
+
+    @Test
+    void updateExistIdAndWithFootballTeamId() {
+        //todo
+    }
+
 }

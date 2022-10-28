@@ -9,13 +9,13 @@ import java.util.List;
 public interface FootballerService {
     List<FootballerDTO> getAll();
 
-    List<FootballerDTO> getAllByAge(Integer age, Pageable pageable);
+    List<FootballerDTO> getAllByAge(int age, Pageable pageable);
 
-    List<FootballerDTO> getAllByOverallRating(Integer overallRating, Pageable pageable);
+    List<FootballerDTO> getAllByOverallRating(int overallRating, Pageable pageable);
 
     List<FootballerDTO> getAllByWorkingLegIsRight(Boolean workingLegIsRight, Pageable pageable);
 
-    List<FootballerDTO> getAllByWorkingLegIsRightAndAge(Boolean workingLegIsRight, Integer age, Pageable pageable);
+    List<FootballerDTO> getAllByWorkingLegIsRightAndAge(Boolean workingLegIsRight, int age, Pageable pageable);
 
     List<FootballerDTO> getAllByFootballTeamId(Long footballTeamId, Pageable pageable);
 

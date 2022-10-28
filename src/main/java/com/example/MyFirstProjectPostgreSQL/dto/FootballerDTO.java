@@ -6,9 +6,9 @@ import lombok.Data;
 public class FootballerDTO {
     private String surname;
 
-    private Integer age;
+    private int age;
 
-    private Integer overallRating;
+    private int overallRating;
 
     private Boolean workingLegIsRight = true;
 

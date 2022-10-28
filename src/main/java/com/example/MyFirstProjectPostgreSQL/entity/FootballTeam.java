@@ -24,10 +24,10 @@ public class FootballTeam {
     private String teamName;
 
     @Min(1500)
-    private Integer yearOfFoundation;
+    private int yearOfFoundation;
 
     @Min(0)
-    private Long teamBudget;
+    private long teamBudget;
 
     @OneToMany(
             mappedBy = "footballTeam",

@@ -10,9 +10,9 @@ public interface FootballTeamService {
 
     FootballTeamDTO get(Long id);
 
-    List<FootballTeamDTO> getAllByTeamBudget(Integer teamBudget, Pageable pageable);
+    List<FootballTeamDTO> getAllByTeamBudget(long teamBudget, Pageable pageable);
 
-    List<FootballTeamDTO> getAllByYearOfFoundation(Integer yearOfFoundation, Pageable pageable);
+    List<FootballTeamDTO> getAllByYearOfFoundation(int yearOfFoundation, Pageable pageable);
 
     FootballTeamDTO create(FootballTeamDTO footballTeamDTO);
 
