@@ -1,7 +1,6 @@
 package com.example.MyFirstProjectPostgreSQL.conroller.footballer;
 
 import com.example.MyFirstProjectPostgreSQL.controller.FootballerController;
-import com.example.MyFirstProjectPostgreSQL.dto.FootballTeamDTO;
 import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
 import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
@@ -26,23 +25,19 @@ public class FootballerControllerTest {
     private static final String SURNAME = "Ronaldo";
     private static final Boolean WORKINGLEGISRIGHT = true;
     private static final Long FOOTBALLTEAMID = 10L;
+    private static final Long ID = 11L;
     private static Pageable pageable;
-    private Footballer footballer;
     private FootballerDTO footballerDTO;
-    private FootballTeam footballTeam;
-    private FootballTeamDTO footballTeamDTO;
 
     @BeforeEach
     void beforeEach() {
         pageable = PageRequest.of(0, 40);
 
-        footballTeam = new FootballTeam();
+         FootballTeam footballTeam = new FootballTeam();
         footballTeam.setId(FOOTBALLTEAMID);
 
-        footballTeamDTO = new FootballTeamDTO();
-
-
-        footballer = new Footballer();
+        Footballer footballer = new Footballer();
+        footballer.setId(ID);
         footballer.setFootballTeam(footballTeam);
         footballer.setAge(AGE);
         footballer.setOverallRating(OVERALLRATING);
@@ -160,5 +155,44 @@ public class FootballerControllerTest {
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    @Test
+    void getById() {
+        Mockito.when(footballerService.get(ID))
+                .thenReturn(footballerDTO);
 
+        ResponseEntity<FootballerDTO> response = footballerController.getById(ID);
+
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void create() {
+        Mockito.when(footballerService.create(footballerDTO))
+                .thenReturn(footballerDTO);
+
+        ResponseEntity<FootballerDTO> response = footballerController.create(footballerDTO);
+
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    void update() {
+        Mockito.when(footballerService.update(ID, footballerDTO))
+                .thenReturn(footballerDTO);
+
+        ResponseEntity<FootballerDTO> responseUpdate = footballerController.update(ID, footballerDTO);
+
+        Assertions.assertNotNull(responseUpdate.getBody());
+        Assertions.assertEquals(HttpStatus.OK, responseUpdate.getStatusCode());
+    }
+
+    @Test
+    void delete() {
+        ResponseEntity<FootballerDTO> delete = footballerController.delete(ID);
+
+        Mockito.verify(footballerService).delete(ID);
+        Assertions.assertEquals(HttpStatus.NO_CONTENT, delete.getStatusCode());
+    }
 }
