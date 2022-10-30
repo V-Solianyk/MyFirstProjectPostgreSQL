@@ -1,7 +1,6 @@
 package com.example.MyFirstProjectPostgreSQL.controller;
 
 import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
-import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
 import com.example.MyFirstProjectPostgreSQL.service.footballer.FootballerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -35,57 +34,57 @@ public class FootballerController {
     }
 
     @GetMapping("/age")
-    ResponseEntity<List<FootballerDTO>> getAllByAge(@RequestParam("age") Integer age, Pageable pageable) {
+    public ResponseEntity<List<FootballerDTO>> getAllByAge(@RequestParam("age") int age, Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByAge(age, pageable));
     }
 
     @GetMapping("/overallRating")
-    ResponseEntity<List<FootballerDTO>> getAllByOverallRating(@RequestParam("overallRating") Integer overallRating,
+    public ResponseEntity<List<FootballerDTO>> getAllByOverallRating(@RequestParam("overallRating") int overallRating,
                                                               Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByOverallRating(overallRating, pageable));
     }
 
     @GetMapping("/keyword")
-    ResponseEntity<List<FootballerDTO>> getAllBySurnameContainsIgnoreCase(@RequestParam("keyword") String keyword,
+    public ResponseEntity<List<FootballerDTO>> getAllBySurnameContainsIgnoreCase(@RequestParam("keyword") String keyword,
                                                                           Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllBySurnameContainsIgnoreCase(keyword, pageable));
     }
 
     @GetMapping("/workingLegIsRightAndAge")
-    ResponseEntity<List<FootballerDTO>> getAllByWorkingLegAndAge(@RequestParam("workingLegIsRight") Boolean workingLegIsRight,
-                                                                 @RequestParam("age") Integer age, Pageable pageable) {
+    public ResponseEntity<List<FootballerDTO>> getAllByWorkingLegAndAge(@RequestParam("workingLegIsRight") Boolean workingLegIsRight,
+                                                                 @RequestParam("age") int age, Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByWorkingLegIsRightAndAge(workingLegIsRight, age, pageable));
     }
 
     @GetMapping("/workingLegIsRight")
-    ResponseEntity<List<FootballerDTO>> getAllByWorkingLegIsRight
+    public ResponseEntity<List<FootballerDTO>> getAllByWorkingLegIsRight
             (@RequestParam("workingLegIsRight") Boolean workingLegIsRight, Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByWorkingLegIsRight(workingLegIsRight, pageable));
     }
 
     @GetMapping("/footballTeamId")
-    ResponseEntity<List<FootballerDTO>> getAllByFootballTeamId(@RequestParam("footballTeamId") Long footballTeamId,
+    public ResponseEntity<List<FootballerDTO>> getAllByFootballTeamId(@RequestParam("footballTeamId") Long footballTeamId,
                                                                Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByFootballTeamId(footballTeamId, pageable));
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<FootballerDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<FootballerDTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok(footballerService.get(id));
     }
 
     @PostMapping
-    ResponseEntity<FootballerDTO> create(@RequestBody FootballerDTO footballerDTO) {
+    public ResponseEntity<FootballerDTO> create(@RequestBody FootballerDTO footballerDTO) {
         return new ResponseEntity<FootballerDTO>(footballerService.create(footballerDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<FootballerDTO> update(@PathVariable Long id, @RequestBody FootballerDTO footballerDTO) {
+    public ResponseEntity<FootballerDTO> update(@PathVariable Long id, @RequestBody FootballerDTO footballerDTO) {
         return ResponseEntity.ok(footballerService.update(id, footballerDTO));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<FootballerDTO> delete(@PathVariable Long id) {
+    public ResponseEntity<FootballerDTO> delete(@PathVariable Long id) {
         footballerService.delete(id);
 
         return ResponseEntity.noContent().build();
