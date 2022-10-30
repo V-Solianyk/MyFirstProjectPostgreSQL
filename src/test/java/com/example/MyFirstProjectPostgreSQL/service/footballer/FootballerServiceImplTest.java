@@ -313,7 +313,8 @@ public class FootballerServiceImplTest {
         Mockito.when(footballerRepository.findById(EXISTID))
                 .thenReturn(Optional.of(footballer));
 
-        footballerRepository.deleteById(EXISTID);
+        footballerService.delete(EXISTID);
+
         Mockito.verify(footballerRepository).deleteById(EXISTID);
     }
 }

@@ -197,7 +197,7 @@ public class FootballTeamServiceImplTest {
         Mockito.when(footballTeamRepository.findById(EXISTID))
                 .thenReturn(Optional.of(footballTeam));
 
-        footballTeamRepository.deleteById(EXISTID);
+        footballTeamService.delete(EXISTID);
 
         Mockito.verify(footballTeamRepository).deleteById(EXISTID);
     }

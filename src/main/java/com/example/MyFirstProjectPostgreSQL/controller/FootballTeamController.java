@@ -29,37 +29,37 @@ public class FootballTeamController {
     }
 
     @GetMapping
-    ResponseEntity<List<FootballTeamDTO>> getAll() {
+    public ResponseEntity<List<FootballTeamDTO>> getAll() {
         return ResponseEntity.ok(footballTeamService.getAll());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<FootballTeamDTO> get(@PathVariable Long id) {
+    public ResponseEntity<FootballTeamDTO> get(@PathVariable Long id) {
         return ResponseEntity.ok(footballTeamService.get(id));
     }
 
     @GetMapping("/teamBudget")
-    ResponseEntity<List<FootballTeamDTO>> getAllByTeamBudget(@RequestParam("teamBudget") long budget, Pageable pageable) {
+    public ResponseEntity<List<FootballTeamDTO>> getAllByTeamBudget(@RequestParam("teamBudget") long budget, Pageable pageable) {
         return ResponseEntity.ok(footballTeamService.getAllByTeamBudget(budget, pageable));
     }
 
     @GetMapping("/yearOfFoundation")
-    ResponseEntity<List<FootballTeamDTO>> getAllByYearOfFoundation(@RequestParam("yearOfFoundation") int year,
+    public ResponseEntity<List<FootballTeamDTO>> getAllByYearOfFoundation(@RequestParam("yearOfFoundation") int year,
                                                                    Pageable pageable) {
         return ResponseEntity.ok(footballTeamService.getAllByYearOfFoundation(year, pageable));
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<FootballTeamDTO> update(@PathVariable Long id, @RequestBody FootballTeamDTO footballTeamDTO) {
+    public ResponseEntity<FootballTeamDTO> update(@PathVariable Long id, @RequestBody FootballTeamDTO footballTeamDTO) {
         return ResponseEntity.ok(footballTeamService.update(id, footballTeamDTO));
     }
 
     @PostMapping
-    ResponseEntity<FootballTeamDTO> create(@RequestBody FootballTeamDTO footballTeamDTO) {
+    public ResponseEntity<FootballTeamDTO> create(@RequestBody FootballTeamDTO footballTeamDTO) {
         return new ResponseEntity<FootballTeamDTO>(footballTeamService.create(footballTeamDTO), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    public @DeleteMapping("/{id}")
     ResponseEntity<FootballTeamDTO> delete(@PathVariable Long id) {
         footballTeamService.delete(id);
 
