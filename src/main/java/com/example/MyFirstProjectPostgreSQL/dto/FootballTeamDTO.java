@@ -8,5 +8,4 @@ public class FootballTeamDTO {
 
     private int yearOfFoundation;
 
-    private long teamBudget;
 }

@@ -4,10 +4,13 @@ import lombok.Data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
@@ -26,8 +29,12 @@ public class FootballTeam {
     @Min(1500)
     private int yearOfFoundation;
 
-    @Min(0)
-    private long teamBudget;
+    @OneToOne(
+            mappedBy = "footballTeam",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private TeamBudget teamBudget;
 
     @OneToMany(
             mappedBy = "footballTeam",
@@ -40,8 +47,7 @@ public class FootballTeam {
                 "id=" + id +
                 ", teamName='" + teamName + '\'' +
                 ", yearOfFoundation=" + yearOfFoundation +
-                ", teamBudget=" + teamBudget +
                 '}';
     }
-
 }
+

@@ -1,6 +1,7 @@
 package com.example.MyFirstProjectPostgreSQL.controller;
 
 import com.example.MyFirstProjectPostgreSQL.dto.FootballTeamDTO;
+import com.example.MyFirstProjectPostgreSQL.dto.TeamBudgetDTO;
 import com.example.MyFirstProjectPostgreSQL.service.footballTeam.FootballTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -38,14 +39,9 @@ public class FootballTeamController {
         return ResponseEntity.ok(footballTeamService.get(id));
     }
 
-    @GetMapping("/teamBudget")
-    public ResponseEntity<List<FootballTeamDTO>> getAllByTeamBudget(@RequestParam("teamBudget") long budget, Pageable pageable) {
-        return ResponseEntity.ok(footballTeamService.getAllByTeamBudget(budget, pageable));
-    }
-
     @GetMapping("/yearOfFoundation")
     public ResponseEntity<List<FootballTeamDTO>> getAllByYearOfFoundation(@RequestParam("yearOfFoundation") int year,
-                                                                   Pageable pageable) {
+                                                                          Pageable pageable) {
         return ResponseEntity.ok(footballTeamService.getAllByYearOfFoundation(year, pageable));
     }
 
@@ -57,6 +53,16 @@ public class FootballTeamController {
     @PostMapping
     public ResponseEntity<FootballTeamDTO> create(@RequestBody FootballTeamDTO footballTeamDTO) {
         return new ResponseEntity<FootballTeamDTO>(footballTeamService.create(footballTeamDTO), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/teamBudget")
+    public ResponseEntity<TeamBudgetDTO> createTeamBudget(@RequestBody TeamBudgetDTO teamBudgetDTO) {
+        return new ResponseEntity<TeamBudgetDTO>(footballTeamService.createTeamBudget(teamBudgetDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/teamBudget/{id}")
+    public ResponseEntity<TeamBudgetDTO> updateTeamBudget(@PathVariable Long id, @RequestBody TeamBudgetDTO teamBudgetDTO) {
+        return ResponseEntity.ok(footballTeamService.updateTeamBudget(id, teamBudgetDTO));
     }
 
     public @DeleteMapping("/{id}")

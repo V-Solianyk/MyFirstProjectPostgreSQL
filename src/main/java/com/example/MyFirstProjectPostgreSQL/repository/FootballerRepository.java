@@ -1,4 +1,4 @@
-package com.example.MyFirstProjectPostgreSQL.repository.footballer;
+package com.example.MyFirstProjectPostgreSQL.repository;
 
 import com.example.MyFirstProjectPostgreSQL.entity.Footballer;
 import org.springframework.data.domain.Pageable;

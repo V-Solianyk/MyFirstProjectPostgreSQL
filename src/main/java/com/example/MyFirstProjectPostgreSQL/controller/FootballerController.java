@@ -1,6 +1,7 @@
 package com.example.MyFirstProjectPostgreSQL.controller;
 
 import com.example.MyFirstProjectPostgreSQL.dto.FootballerDTO;
+import com.example.MyFirstProjectPostgreSQL.dto.TeamBudgetDTO;
 import com.example.MyFirstProjectPostgreSQL.service.footballer.FootballerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

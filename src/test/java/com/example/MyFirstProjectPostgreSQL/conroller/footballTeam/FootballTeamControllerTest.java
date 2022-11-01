@@ -2,7 +2,7 @@ package com.example.MyFirstProjectPostgreSQL.conroller.footballTeam;
 
 import com.example.MyFirstProjectPostgreSQL.controller.FootballTeamController;
 import com.example.MyFirstProjectPostgreSQL.dto.FootballTeamDTO;
-import com.example.MyFirstProjectPostgreSQL.entity.FootballTeam;
+import com.example.MyFirstProjectPostgreSQL.dto.TeamBudgetDTO;
 import com.example.MyFirstProjectPostgreSQL.service.footballTeam.FootballTeamService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,26 +20,22 @@ public class FootballTeamControllerTest {
     FootballTeamController footballTeamController = new FootballTeamController(footballTeamService);
 
     private static final Long ID = 111L;
-    private Pageable pageable;
-    private static final String TEAMNAME = "FC Barcelona";
     private static final int YEAROFFOUNDATION = 1899;
-    private static final long TEAMBUDGET = 99999999;
+
+    private Pageable pageable;
+
+    private TeamBudgetDTO teamBudgetDTO;
+
     private FootballTeamDTO footballTeamDTO;
 
     @BeforeEach
     void beforeEach() {
         pageable = PageRequest.of(0, 55);
 
-        FootballTeam footballTeam = new FootballTeam();
-        footballTeam.setTeamName(TEAMNAME);
-        footballTeam.setYearOfFoundation(YEAROFFOUNDATION);
-        footballTeam.setTeamBudget(TEAMBUDGET);
-        footballTeam.setId(ID);
-
         footballTeamDTO = new FootballTeamDTO();
-        footballTeamDTO.setTeamName(footballTeam.getTeamName());
-        footballTeamDTO.setYearOfFoundation(footballTeam.getYearOfFoundation());
-        footballTeamDTO.setTeamBudget(footballTeam.getTeamBudget());
+        footballTeamDTO.setYearOfFoundation(YEAROFFOUNDATION);
+
+        teamBudgetDTO = new TeamBudgetDTO();
     }
 
     @Test
@@ -63,22 +59,6 @@ public class FootballTeamControllerTest {
         ResponseEntity<FootballTeamDTO> response = footballTeamController.get(ID);
 
         Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(TEAMNAME, response.getBody().getTeamName());
-        Assertions.assertEquals(TEAMBUDGET, response.getBody().getTeamBudget());
-        Assertions.assertEquals(YEAROFFOUNDATION, response.getBody().getYearOfFoundation());
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
-
-    @Test
-    void getAllByTeamBudget() {
-        Mockito.when(footballTeamService.getAllByTeamBudget(TEAMBUDGET, pageable))
-                .thenReturn(List.of(footballTeamDTO, footballTeamDTO));
-
-        ResponseEntity<List<FootballTeamDTO>> response = footballTeamController.getAllByTeamBudget(TEAMBUDGET, pageable);
-
-        Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(TEAMBUDGET, response.getBody().get(0).getTeamBudget());
-        Assertions.assertEquals(TEAMBUDGET, response.getBody().get(1).getTeamBudget());
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
@@ -108,11 +88,33 @@ public class FootballTeamControllerTest {
     }
 
     @Test
+    void updateTeamBudget() {
+        Mockito.when(footballTeamService.updateTeamBudget(ID, teamBudgetDTO))
+                .thenReturn(teamBudgetDTO);
+
+        ResponseEntity<TeamBudgetDTO> response = footballTeamController.updateTeamBudget(ID, teamBudgetDTO);
+
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
     void create() {
         Mockito.when(footballTeamService.create(footballTeamDTO))
                 .thenReturn(footballTeamDTO);
 
         ResponseEntity<FootballTeamDTO> response = footballTeamController.create(footballTeamDTO);
+
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    void createTeamBudget() {
+        Mockito.when(footballTeamService.createTeamBudget(teamBudgetDTO))
+                .thenReturn(teamBudgetDTO);
+
+        ResponseEntity<TeamBudgetDTO> response = footballTeamController.createTeamBudget(teamBudgetDTO);
 
         Assertions.assertNotNull(response.getBody());
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
