@@ -88,18 +88,18 @@ public class FootballerServiceImpl implements FootballerService {
     @Override
     public FootballerDTO create(FootballerDTO footballerDTO) {
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
-        footballerRepository.save(footballer);
 
         if (footballerDTO.getFootballTeamId() != null) {
             footballTeamRepository.findById(footballerDTO.getFootballTeamId())
                     .ifPresent(footballTeam -> {
-                        footballer.setFootballTeam(footballTeam);
                         Set<Footballer> footballers = footballTeam.getFootballers();
                         footballers.add(footballer);
                         footballTeam.setFootballers(footballers);
+                        footballer.setFootballTeam(footballTeam);
                         footballTeamRepository.save(footballTeam);
                     });
-        }
+        } else
+            footballerRepository.save(footballer);
 
         return footballerDTO;
     }
@@ -111,18 +111,19 @@ public class FootballerServiceImpl implements FootballerService {
 
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
         footballer.setId(id);
-        footballerRepository.save(footballer);
 
         if (footballerDTO.getFootballTeamId() != null) {
             footballTeamRepository.findById(footballerDTO.getFootballTeamId())
                     .ifPresent(footballTeam -> {
-                        footballer.setFootballTeam(footballTeam);
                         Set<Footballer> footballers = footballTeam.getFootballers();
                         footballers.add(footballer);
                         footballTeam.setFootballers(footballers);
+                        footballer.setFootballTeam(footballTeam);
                         footballTeamRepository.save(footballTeam);
                     });
-        }
+        } else
+            footballerRepository.save(footballer);
+
         return footballerDTO;
     }
 

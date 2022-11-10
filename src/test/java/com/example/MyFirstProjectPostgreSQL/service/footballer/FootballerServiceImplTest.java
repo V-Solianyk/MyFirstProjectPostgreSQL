@@ -220,9 +220,6 @@ public class FootballerServiceImplTest {
         Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
                 .thenReturn(footballer);
 
-        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
-                .thenReturn(footballer);
-
         Mockito.when(footballTeamRepository.findById(footballerDTO.getFootballTeamId()))
                 .thenReturn(Optional.of(footballTeam));
 
@@ -275,9 +272,6 @@ public class FootballerServiceImplTest {
                 .thenReturn(Optional.of(footballer));
 
         Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
-                .thenReturn(footballer);
-
-        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
                 .thenReturn(footballer);
 
         Mockito.when(footballTeamRepository.findById(footballerDTO.getFootballTeamId()))

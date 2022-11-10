@@ -91,11 +91,9 @@ public class FootballTeamServiceImpl implements FootballTeamService {
         TeamBudget teamBudget = teamBudgetMapper.teamBudgetDTOToTeamBudget(teamBudgetDTO);
 
         teamBudget.setFootballTeam(footballTeam);
-        footballTeamRepository.save(footballTeam);
-
         footballTeam.setTeamBudget(teamBudget);
-        teamBudgetRepository.save(teamBudget);
 
+        footballTeamRepository.save(footballTeam);
 
         return teamBudgetDTO;
     }

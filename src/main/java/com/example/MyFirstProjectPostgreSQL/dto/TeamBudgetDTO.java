@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Data
 public class TeamBudgetDTO {
-    private BigDecimal ValueTeamBudget;
+    private BigDecimal valueTeamBudget;
 
     private String currencyCode;
 

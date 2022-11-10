@@ -228,8 +228,6 @@ public class FootballTeamServiceImplTest {
 
         Mockito.verify(footballTeamRepository).save(footballTeam);
 
-        Mockito.verify(teamBudgetRepository).save(teamBudget);
-
         Assertions.assertEquals(VALUETEAMBUDGET, response.getValueTeamBudget());
         Assertions.assertEquals(CURRENCYCODE, response.getCurrencyCode());
     }

@@ -18,7 +18,7 @@ public class TeamBudget {
     @Column(name = "footballTeam_id")
     private Long id;
 
-    private BigDecimal ValueTeamBudget;
+    private BigDecimal valueTeamBudget;
 
     private Currency currency;
 
